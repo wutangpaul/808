@@ -21,48 +21,78 @@ export default function StepButtons({
   toggleStep,
   togglePlayback,
 }: StepButtonsProps) {
-  const getButtonColor = (index: number) => {
-    if (index < 4) {
-      return "from-red-500 to-red-600";
-    } else if (index < 8) {
-      return "from-orange-500 to-orange-600";
-    } else if (index < 12) {
-      return "from-yellow-500 to-yellow-600";
+  const getButtonStyle = (index: number, isActive: boolean) => {
+    let baseColor, textColor;
+    
+    if (index < 4 || (index >= 16 && index < 20)) {
+      baseColor = '#DD1D00';
+      textColor = '#E6E8BF';
+    } else if ((index >= 4 && index < 8) || (index >= 20 && index < 24)) {
+      baseColor = '#F27900';
+      textColor = '#E6E8BF';
+    } else if ((index >= 8 && index < 12) || (index >= 24 && index < 28)) {
+      baseColor = '#DDDA00';
+      textColor = '#2F2E3E';
     } else {
-      return "from-gray-200 to-gray-300";
+      baseColor = '#E6E8BF';
+      textColor = '#2F2E3E';
     }
+    
+    // Make active steps more visible with much darker background for pressed effect
+    if (isActive) {
+      if (baseColor === '#DDDA00') {
+        // For yellow buttons, use much darker yellow when active
+        baseColor = '#999900';
+        textColor = '#E6E8BF';
+      } else if (baseColor === '#E6E8BF') {
+        // For light buttons, use much darker background when active
+        baseColor = '#A0A080';
+        textColor = '#E6E8BF';
+      } else if (baseColor === '#F27900') {
+        // For orange buttons, use darker orange when active
+        baseColor = '#C25500';
+        textColor = '#E6E8BF';
+      } else if (baseColor === '#DD1D00') {
+        // For red buttons, use darker red when active
+        baseColor = '#B01500';
+        textColor = '#E6E8BF';
+      }
+    }
+    
+    return { backgroundColor: baseColor, color: textColor };
   };
 
-  const getButtonTextColor = (index: number) => {
-    return index >= 12 ? "text-gray-800" : "text-white";
-  };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Transport Controls */}
       <div className="flex justify-center">
         <button
           onClick={togglePlayback}
-          className={`
-            h-20 w-40 rounded-xl font-bold text-lg tracking-wider
-            transition-all duration-200 transform hover:scale-105 active:scale-95
-            shadow-lg border-2
-            ${isPlaying 
-              ? "bg-gradient-to-b from-red-500 to-red-600 hover:from-red-400 hover:to-red-500 border-red-400 shadow-red-500/50 text-white" 
-              : "bg-gradient-to-b from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 border-green-400 shadow-green-500/50 text-white"
-            }
-          `}
+          className="h-16 w-32 sm:h-20 sm:w-40 rounded-xl font-bold text-base sm:text-lg tracking-wider transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg border-2"
+          style={{
+            backgroundColor: isPlaying ? '#DD1D00' : '#DDDA00',
+            borderColor: '#E6E8BF',
+            color: isPlaying ? '#E6E8BF' : '#2F2E3E',
+            boxShadow: isPlaying 
+              ? '0 10px 25px -3px rgba(221, 29, 0, 0.5)' 
+              : '0 10px 25px -3px rgba(221, 218, 0, 0.5)'
+          }}
         >
           <div className="flex items-center justify-center gap-2">
             {isPlaying ? (
               <>
-                <div className="w-2 h-6 bg-white rounded-sm"></div>
-                <div className="w-2 h-6 bg-white rounded-sm"></div>
+                <div className="w-2 h-6 rounded-sm" style={{ backgroundColor: '#E6E8BF' }}></div>
+                <div className="w-2 h-6 rounded-sm" style={{ backgroundColor: '#E6E8BF' }}></div>
                 <span>STOP</span>
               </>
             ) : (
               <>
-                <div className="w-0 h-0 border-l-[8px] border-l-white border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-1"></div>
+                <div className="w-0 h-0 ml-1" style={{ 
+                  borderLeft: '8px solid #2F2E3E',
+                  borderTop: '6px solid transparent',
+                  borderBottom: '6px solid transparent'
+                }}></div>
                 <span>START</span>
               </>
             )}
@@ -71,55 +101,42 @@ export default function StepButtons({
       </div>
 
       {/* Step Buttons */}
-      <div className="flex flex-col items-center gap-4">
-        <h3 className="text-orange-300 font-bold text-lg tracking-wider">
+      <div className="flex flex-col items-center gap-3 sm:gap-4">
+        <h3 className="font-bold text-base sm:text-lg tracking-wider" style={{ color: '#E6E8BF' }}>
           STEP SEQUENCER
         </h3>
         
-        {/* Step numbers */}
-        <div className="grid grid-cols-8 lg:grid-cols-16 gap-2 mb-2">
+        {/* Step numbers - First row (1-16) */}
+        <div className="grid grid-cols-8 lg:grid-cols-16 gap-1 sm:gap-2 mb-1 sm:mb-2">
           {Array.from({ length: 16 }, (_, i) => (
-            <div key={i} className="text-center text-xs text-gray-400 font-mono w-12 lg:w-16">
+            <div key={i} className="text-center text-xs font-mono w-10 sm:w-12 lg:w-16" style={{ color: '#E6E8BF' }}>
               {String(i + 1).padStart(2, '0')}
             </div>
           ))}
         </div>
 
-        {/* Step buttons - responsive grid */}
-        <div className="grid grid-cols-8 lg:grid-cols-16 gap-2">
-          {(fillMode ? fillSequences : sequences)[selectedInstrument].map((isActive, index) => (
+        {/* Step buttons - First row (1-16) */}
+        <div className="grid grid-cols-8 lg:grid-cols-16 gap-2 mb-4">
+          {(fillMode ? fillSequences : sequences)[selectedInstrument].slice(0, 16).map((isActive, index) => (
             <button
               key={index}
               onClick={() => toggleStep(index)}
-              className={`
-                relative h-12 w-12 lg:h-16 lg:w-16 rounded-xl 
-                bg-gradient-to-b ${getButtonColor(index)}
-                border-2 transition-all duration-150
-                transform hover:scale-105 active:scale-95
-                shadow-lg hover:shadow-xl
-                ${getButtonTextColor(index)}
-                ${currentStep === index && isPlaying
-                  ? "border-yellow-300 shadow-yellow-300/50 ring-2 ring-yellow-300/50"
-                  : "border-gray-500 hover:border-gray-400"
-                }
-              `}
+              className="relative h-10 w-10 sm:h-12 sm:w-12 lg:h-16 lg:w-16 rounded-lg sm:rounded-xl border-2 transition-all duration-150 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl touch-manipulation"
+              style={{
+                ...getButtonStyle(index, isActive),
+                borderColor: currentStep === index && isPlaying ? '#DDDA00' : '#E6E8BF',
+                boxShadow: currentStep === index && isPlaying 
+                  ? '0 10px 25px -3px rgba(221, 218, 0, 0.5), 0 0 0 2px rgba(221, 218, 0, 0.5)' 
+                  : isActive 
+                  ? 'inset 0 4px 8px rgba(0, 0, 0, 0.6), inset 0 -2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1)' // Deep pressed look
+                  : '0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(255, 255, 255, 0.2) inset', // Strong raised look
+                transform: currentStep === index && isPlaying 
+                  ? 'scale(1.05)' 
+                  : isActive 
+                  ? 'scale(0.88) translateY(2px)' // Much smaller and pushed down
+                  : 'scale(1)',
+              }}
             >
-              {/* Step indicator dot */}
-              <div
-                className={`
-                  absolute top-1 left-1/2 transform -translate-x-1/2 
-                  h-2 w-2 lg:h-3 lg:w-3 rounded-full transition-all duration-200
-                  ${isActive && currentStep === index && isPlaying
-                    ? "bg-red-400 shadow-lg shadow-red-400/50 scale-110"
-                    : isActive
-                    ? "bg-yellow-300 shadow-md shadow-yellow-300/50"
-                    : currentStep === index && isPlaying
-                    ? "bg-red-400 shadow-lg shadow-red-400/50 scale-110"
-                    : "bg-transparent"
-                  }
-                `}
-              />
-              
               {/* Step number */}
               <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-[10px] font-bold opacity-75">
                 {index + 1}
@@ -127,16 +144,71 @@ export default function StepButtons({
 
               {/* Active state glow */}
               {isActive && (
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-transparent to-white/20 pointer-events-none"></div>
+                <div className="absolute inset-0 rounded-xl pointer-events-none" style={{ 
+                  background: 'linear-gradient(to top, transparent, rgba(230, 232, 191, 0.15))' 
+                }}></div>
               )}
             </button>
           ))}
         </div>
 
+        {/* Step numbers - Second row (17-32) */}
+        <div className="grid grid-cols-8 lg:grid-cols-16 gap-2 mb-2">
+          {Array.from({ length: 16 }, (_, i) => (
+            <div key={i + 16} className="text-center text-xs font-mono w-12 lg:w-16" style={{ color: '#E6E8BF' }}>
+              {String(i + 17).padStart(2, '0')}
+            </div>
+          ))}
+        </div>
+
+        {/* Step buttons - Second row (17-32) */}
+        <div className="grid grid-cols-8 lg:grid-cols-16 gap-2">
+          {(fillMode ? fillSequences : sequences)[selectedInstrument].slice(16, 32).map((isActive, index) => {
+            const actualIndex = index + 16;
+            return (
+              <button
+                key={actualIndex}
+                onClick={() => toggleStep(actualIndex)}
+                className="relative h-10 w-10 sm:h-12 sm:w-12 lg:h-16 lg:w-16 rounded-lg sm:rounded-xl border-2 transition-all duration-150 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl touch-manipulation"
+                style={{
+                  ...getButtonStyle(actualIndex, isActive),
+                  borderColor: currentStep === actualIndex && isPlaying ? '#DDDA00' : '#E6E8BF',
+                  boxShadow: currentStep === actualIndex && isPlaying 
+                    ? '0 10px 25px -3px rgba(221, 218, 0, 0.5), 0 0 0 2px rgba(221, 218, 0, 0.5)' 
+                    : isActive 
+                    ? 'inset 0 4px 8px rgba(0, 0, 0, 0.6), inset 0 -2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1)' // Deep pressed look
+                    : '0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(255, 255, 255, 0.2) inset', // Strong raised look
+                  transform: currentStep === actualIndex && isPlaying 
+                    ? 'scale(1.05)' 
+                    : isActive 
+                    ? 'scale(0.88) translateY(2px)' // Much smaller and pushed down
+                    : 'scale(1)'
+                }}
+              >
+                {/* Step number */}
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-[10px] font-bold opacity-75">
+                  {actualIndex + 1}
+                </div>
+
+                {/* Active state glow */}
+                {isActive && (
+                  <div className="absolute inset-0 rounded-xl pointer-events-none" style={{ 
+                    background: 'linear-gradient(to top, transparent, rgba(230, 232, 191, 0.15))' 
+                  }}></div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Pattern indicator */}
         <div className="flex items-center gap-4 text-sm">
-          <span className="text-gray-400">Pattern:</span>
-          <div className={`px-3 py-1 rounded-lg font-bold ${fillMode ? 'bg-purple-600 text-white' : 'bg-gray-600 text-gray-300'}`}>
+          <span style={{ color: '#E6E8BF' }}>Pattern:</span>
+          <div className="px-3 py-1 rounded-lg font-bold" style={{
+            backgroundColor: fillMode ? '#F27900' : '#2F2E3E',
+            color: fillMode ? '#E6E8BF' : '#DDDA00',
+            border: `1px solid #E6E8BF`
+          }}>
             {fillMode ? 'FILL' : 'MAIN'} - {selectedInstrument.toUpperCase()}
           </div>
         </div>

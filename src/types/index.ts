@@ -7,4 +7,5 @@ export interface InstrumentSettings {
   release: number;
   volume: number;
   muted: boolean;
+  tone: number; // 0 to 1, controls filter frequency for character
 }

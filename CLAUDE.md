@@ -28,3 +28,4 @@ This is a React + TypeScript + Vite project with Tailwind CSS v4. It's a minimal
 - **Linting**: ESLint configured with TypeScript, React Hooks, and React Refresh rules
 
 The project follows Vite's standard conventions with public assets in `public/` and source code in `src/`. Tailwind CSS v4 is configured through the Vite plugin system.
+- I'll always have a dev server running in background

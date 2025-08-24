@@ -368,35 +368,73 @@ export default function Sequencer() {
   }, [isPlaying, bpm]);
 
   return (
-    <div className="p-6">
-      <SequencerControls
-        selectedInstrument={selectedInstrument}
-        setSelectedInstrument={setSelectedInstrument}
-        instrumentSettings={instrumentSettings}
-        setInstrumentSettings={setInstrumentSettings}
-        fillMode={fillMode}
-        setFillMode={setFillMode}
-        toggleInstrumentMute={toggleInstrumentMute}
-      />
-      
-      <StepButtons
-        sequences={sequences}
-        fillSequences={fillSequences}
-        selectedInstrument={selectedInstrument}
-        fillMode={fillMode}
-        currentStep={currentStep}
-        isPlaying={isPlaying}
-        toggleStep={toggleStep}
-        togglePlayback={togglePlayback}
-      />
+    <div className="min-h-screen p-4 lg:p-8" style={{ background: 'linear-gradient(135deg, #2F2E3E 0%, #1a1924 100%)' }}>
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl lg:text-6xl font-bold mb-2" style={{ color: '#E6E8BF' }}>
+            ROLAND TR-808
+          </h1>
+          <div className="text-lg lg:text-xl font-medium mb-4" style={{ color: '#DDDA00' }}>
+            RHYTHM COMPOSER
+          </div>
+          <div className="w-32 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(to right, #F27900, #DD1D00)' }}></div>
+        </div>
 
-      <MasterControls
-        reverbAmount={reverbAmount}
-        setReverbAmount={setReverbAmount}
-        bpm={bpm}
-        setBpm={setBpm}
-        loadRockPattern={loadRockPattern}
-      />
+        {/* Main Machine Body */}
+        <div className="rounded-3xl shadow-2xl p-6 lg:p-8 border-2" style={{ 
+          backgroundColor: '#2F2E3E',
+          borderColor: '#E6E8BF',
+          boxShadow: '0 25px 50px -12px rgba(221, 28, 0, 0.25)'
+        }}>
+          {/* Top Panel - Instrument Controls */}
+          <div className="rounded-xl p-6 mb-6 border shadow-inner" style={{ 
+            backgroundColor: 'rgba(230, 232, 191, 0.1)',
+            borderColor: '#E6E8BF'
+          }}>
+            <SequencerControls
+              selectedInstrument={selectedInstrument}
+              setSelectedInstrument={setSelectedInstrument}
+              instrumentSettings={instrumentSettings}
+              setInstrumentSettings={setInstrumentSettings}
+              fillMode={fillMode}
+              setFillMode={setFillMode}
+              toggleInstrumentMute={toggleInstrumentMute}
+            />
+          </div>
+          
+          {/* Middle Panel - Step Sequencer */}
+          <div className="rounded-xl p-6 mb-6 border shadow-inner" style={{ 
+            backgroundColor: 'rgba(230, 232, 191, 0.1)',
+            borderColor: '#E6E8BF'
+          }}>
+            <StepButtons
+              sequences={sequences}
+              fillSequences={fillSequences}
+              selectedInstrument={selectedInstrument}
+              fillMode={fillMode}
+              currentStep={currentStep}
+              isPlaying={isPlaying}
+              toggleStep={toggleStep}
+              togglePlayback={togglePlayback}
+            />
+          </div>
+
+          {/* Bottom Panel - Master Controls */}
+          <div className="rounded-xl p-6 border shadow-inner" style={{ 
+            backgroundColor: 'rgba(230, 232, 191, 0.1)',
+            borderColor: '#E6E8BF'
+          }}>
+            <MasterControls
+              reverbAmount={reverbAmount}
+              setReverbAmount={setReverbAmount}
+              bpm={bpm}
+              setBpm={setBpm}
+              loadRockPattern={loadRockPattern}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

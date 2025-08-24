@@ -1,11 +1,7 @@
 import Sequencer from './Sequencer'
 
 function App() {
-  return (
-    <div className="min-h-screen bg-black">
-      <Sequencer />
-    </div>
-  )
+  return <Sequencer />
 }
 
 export default App

@@ -7,3 +7,5 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: "/808/",
 });
+
+// trigger build

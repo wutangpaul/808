@@ -542,7 +542,7 @@ export default function Sequencer() {
         {/* Header */}
         <div className="text-center mb-4 sm:mb-6 lg:mb-8">
           <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold mb-1 sm:mb-2" style={{ color: '#E6E8BF' }}>
-            ROLAND TR-808
+            Bassy McBassface
           </h1>
           <div className="text-sm sm:text-lg lg:text-xl font-medium mb-1 sm:mb-2" style={{ color: '#DDDA00' }}>
             RHYTHM COMPOSER

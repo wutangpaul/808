@@ -1,69 +1,72 @@
-# React + TypeScript + Vite
+# Bassy McBassface
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+ ____                      _        __  __           _      
+| __ )  ___  __ _ _ __ ___| |__    / / / / __ _  ___| |__  
+|  _ \ / _ \/ _` | '__/ __| '_ \  / / / / / _` |/ __| '_ \ 
+| |_) |  __/ (_| | | | (__| | | |/ / / / | (_| | (__| | | |
+|____/ \___|\__,_|_|  \___|_| |_/_/ /_/   \__,_|\___|_| |_|
+                                                          
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+A simple and fun drum machine built with React, TypeScript, and Vite.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Getting Started
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+To get started with Bassy McBassface, follow these steps:
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/your-username/bassy-mcbassface.git
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    cd bassy-mcbassface
+    yarn install
+    ```
+
+3.  **Run the development server:**
+
+    ```bash
+    yarn dev
+    ```
+
+    The application will be available at `http://localhost:5173`.
+
+## Features
+
+*   **32-step sequencer:** Create complex rhythms with a 32-step sequencer.
+*   **6 instruments:** Kick, snare, open hat, clap, cowbell, and rimshot.
+*   **ADSR envelope:** Control the attack, decay, sustain, and release of each instrument.
+*   **Volume and tone control:** Adjust the volume and tone of each instrument.
+*   **Fill mode:** Create variations in your patterns with a fill mode.
+*   **Mute:** Mute individual instruments.
+*   **Master controls:** Control the master volume, BPM, and reverb.
+*   **Preset patterns:** Load preset rock and hip-hop patterns.
+*   **Delay and phaser effects:** Add delay and phaser effects to the master bus.
+
+## Technologies
+
+*   **React:** A JavaScript library for building user interfaces.
+*   **TypeScript:** A typed superset of JavaScript that compiles to plain JavaScript.
+*   **Vite:** A fast build tool and development server for modern web projects.
+*   **Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs.
+*   **ESLint:** A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
+
+## Scripts
+
+*   `yarn dev`: Starts the development server.
+*   `yarn build`: Builds the application for production.
+*   `yarn lint`: Lints the code.
+*   `yarn preview`: Previews the production build.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.

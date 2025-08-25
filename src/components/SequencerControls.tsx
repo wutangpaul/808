@@ -66,13 +66,13 @@ export default function SequencerControls({
             onClick={() => toggleInstrumentMute(selectedInstrument)}
             className="px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-bold text-xs sm:text-sm tracking-wider transition-all duration-200 transform hover:scale-105 shadow-lg border-2 flex-1 sm:flex-none"
             style={{
-              backgroundColor: instrumentSettings[selectedInstrument].muted ? '#DD1D00' : '#DDDA00',
+              backgroundColor: instrumentSettings[selectedInstrument].muted ? '#DDDA00' : '#DD1D00',
               borderColor: '#E6E8BF',
-              color: instrumentSettings[selectedInstrument].muted ? '#E6E8BF' : '#2F2E3E',
-              boxShadow: instrumentSettings[selectedInstrument].muted ? '0 10px 25px -3px rgba(221, 29, 0, 0.3)' : '0 10px 25px -3px rgba(221, 218, 0, 0.3)'
+              color: instrumentSettings[selectedInstrument].muted ? '#2F2E3E' : '#E6E8BF',
+              boxShadow: instrumentSettings[selectedInstrument].muted ? '0 10px 25px -3px rgba(221, 218, 0, 0.3)' : '0 10px 25px -3px rgba(221, 29, 0, 0.3)'
             }}
           >
-            {instrumentSettings[selectedInstrument].muted ? "MUTED" : "ACTIVE"}
+            {instrumentSettings[selectedInstrument].muted ? "UNMUTE" : "MUTE"}
           </button>
         </div>
       </div>

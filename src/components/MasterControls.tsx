@@ -5,6 +5,7 @@ interface MasterControlsProps {
   setBpm: (bpm: number) => void;
   loadRockPattern: () => void;
   loadHipHopPattern: () => void;
+  loadElectroPattern: () => void;
   delayTime: number;
   setDelayTime: (time: number) => void;
   delayFeedback: number;
@@ -26,6 +27,7 @@ export default function MasterControls({
   setBpm,
   loadRockPattern,
   loadHipHopPattern,
+  loadElectroPattern,
   delayTime,
   setDelayTime,
   delayFeedback,
@@ -388,6 +390,19 @@ export default function MasterControls({
             }}
           >
             LOAD HIP-HOP PATTERN
+          </button>
+          
+          <button
+            onClick={loadElectroPattern}
+            className="px-8 py-4 rounded-xl font-bold text-sm tracking-wider transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg border-2"
+            style={{
+              backgroundColor: '#DD1D00',
+              borderColor: '#E6E8BF',
+              color: '#E6E8BF',
+              boxShadow: '0 10px 25px -3px rgba(221, 29, 0, 0.3)'
+            }}
+          >
+            LOAD ELECTRO PATTERN
           </button>
         </div>
       </div>

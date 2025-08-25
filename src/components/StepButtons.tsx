@@ -106,14 +106,7 @@ export default function StepButtons({
           STEP SEQUENCER
         </h3>
         
-        {/* Step numbers - First row (1-16) */}
-        <div className="grid grid-cols-8 lg:grid-cols-16 gap-1 sm:gap-2 mb-1 sm:mb-2">
-          {Array.from({ length: 16 }, (_, i) => (
-            <div key={i} className="text-center text-xs font-mono w-10 sm:w-12 lg:w-16" style={{ color: '#E6E8BF' }}>
-              {String(i + 1).padStart(2, '0')}
-            </div>
-          ))}
-        </div>
+        
 
         {/* Step buttons - First row (1-16) */}
         <div className="grid grid-cols-8 lg:grid-cols-16 gap-2 mb-4">
@@ -152,14 +145,7 @@ export default function StepButtons({
           ))}
         </div>
 
-        {/* Step numbers - Second row (17-32) */}
-        <div className="grid grid-cols-8 lg:grid-cols-16 gap-2 mb-2">
-          {Array.from({ length: 16 }, (_, i) => (
-            <div key={i + 16} className="text-center text-xs font-mono w-12 lg:w-16" style={{ color: '#E6E8BF' }}>
-              {String(i + 17).padStart(2, '0')}
-            </div>
-          ))}
-        </div>
+        
 
         {/* Step buttons - Second row (17-32) */}
         <div className="grid grid-cols-8 lg:grid-cols-16 gap-2">

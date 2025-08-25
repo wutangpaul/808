@@ -19,32 +19,42 @@ export const createKickSound = (
   for (let i = 0; i < bufferSize; i++) {
     const t = i / sampleRate;
 
-    // 808-style frequency sweep: starts at ~65Hz, drops to ~35Hz
-    const frequency = 65 * Math.exp(-t * 2.5) + 35 * (1 - Math.exp(-t * 2.5));
+    // More aggressive frequency sweep for punch: starts at ~80Hz, drops to ~30Hz faster
+    const frequency = 80 * Math.exp(-t * 4) + 30 * (1 - Math.exp(-t * 4));
 
     let envelope = 0;
 
-    // ADSR envelope
+    // Enhanced ADSR with sharper attack and more punch
     if (t < settings.attack) {
-      // Attack
-      envelope = t / settings.attack;
+      // Sharp attack with exponential curve for punch
+      envelope = Math.pow(t / settings.attack, 0.3);
     } else if (t < settings.attack + settings.decay) {
       // Decay
       const decayTime = t - settings.attack;
-      envelope = 1 - (1 - settings.sustain) * (decayTime / settings.decay);
+      envelope = 1 - (1 - settings.sustain) * Math.pow(decayTime / settings.decay, 0.8);
     } else {
       // Release
       const releaseTime = t - settings.attack - settings.decay;
-      envelope =
-        settings.sustain * Math.exp(-releaseTime * (3 / settings.release));
+      envelope = settings.sustain * Math.exp(-releaseTime * (4 / settings.release));
     }
 
-    // Add some harmonic content and slight distortion
+    // Enhanced waveform with more punch and sub-bass content
     const fundamental = Math.sin(2 * Math.PI * frequency * t);
-    const harmonic2 = Math.sin(2 * Math.PI * frequency * 2 * t) * 0.3;
-    const distortion = Math.tanh(fundamental * 2) * 0.4;
+    
+    // Add sub-harmonic for deeper thump
+    const subHarmonic = Math.sin(2 * Math.PI * frequency * 0.5 * t) * 0.4;
+    
+    // Second harmonic for body
+    const harmonic2 = Math.sin(2 * Math.PI * frequency * 2 * t) * 0.25;
+    
+    // More aggressive saturation for punch
+    const saturated = Math.tanh(fundamental * 3.5) * 0.6;
+    
+    // Add click/transient for punch (only in first 10ms)
+    const clickEnv = Math.exp(-t * 200);
+    const click = Math.sin(2 * Math.PI * 200 * t) * clickEnv * 0.3;
 
-    data[i] = (fundamental + harmonic2 + distortion) * envelope * 0.9;
+    data[i] = (fundamental + subHarmonic + harmonic2 + saturated + click) * envelope * 1.1;
   }
 
   return buffer;

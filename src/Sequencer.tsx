@@ -49,7 +49,7 @@ export default function Sequencer() {
       decay: 0.3,
       sustain: 0.2,
       release: 0.8,
-      volume: 0.9,
+      volume: 1.2,
       muted: false,
       tone: 0.7, // Slightly warm kick
     },
@@ -82,10 +82,10 @@ export default function Sequencer() {
     },
     cowbell: {
       attack: 0.001,
-      decay: 0.12,
+      decay: 0.06,
       sustain: 0.4,
       release: 0.5,
-      volume: 0.6,
+      volume: 0.15,
       muted: false,
       tone: 0.9, // Very bright cowbell
     },
@@ -94,7 +94,7 @@ export default function Sequencer() {
       decay: 0.03,
       sustain: 0.0,
       release: 0.15,
-      volume: 0.8,
+      volume: 0.4,
       muted: false,
       tone: 0.4, // Darker rimshot
     },
@@ -462,6 +462,48 @@ export default function Sequencer() {
     });
   };
 
+  const loadElectroPattern = () => {
+    setBpm(130); // Faster tempo for electro
+    setSequences({
+      kick: [
+        true, false, false, false, false, false, true, false,
+        false, false, false, false, false, false, true, false,
+        true, false, false, false, false, false, true, false,
+        false, false, false, false, false, false, true, false,
+      ],
+      snare: [
+        false, false, false, false, true, false, false, false,
+        false, false, false, false, true, false, false, false,
+        false, false, false, false, true, false, false, false,
+        false, false, false, false, true, false, false, false,
+      ],
+      openhat: [
+        false, true, false, true, false, true, false, true,
+        false, true, false, true, false, true, false, true,
+        false, true, false, true, false, true, false, true,
+        false, true, false, true, false, true, false, true,
+      ],
+      clap: [
+        false, false, false, false, true, false, true, false,
+        false, false, false, false, true, false, false, false,
+        false, false, false, false, true, false, true, false,
+        false, false, true, false, true, true, true, true,
+      ],
+      cowbell: [
+        false, false, true, false, false, false, false, true,
+        false, false, true, false, false, false, false, true,
+        false, false, true, false, false, false, false, true,
+        false, false, true, false, false, false, false, true,
+      ],
+      rimshot: [
+        false, false, false, false, false, false, false, false,
+        false, true, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false,
+        false, true, false, false, false, false, false, false,
+      ],
+    });
+  };
+
   // Precise audio scheduling function
   const scheduler = useCallback(() => {
     if (!audioContextRef.current || !isPlaying) return;
@@ -536,6 +578,11 @@ export default function Sequencer() {
     };
   }, [isPlaying, scheduler]);
 
+  // Load Electro pattern on initial mount
+  useEffect(() => {
+    loadElectroPattern();
+  }, []);
+
   return (
     <div className="min-h-screen p-2 sm:p-4 lg:p-8" style={{ background: 'linear-gradient(135deg, #2F2E3E 0%, #1a1924 100%)' }}>
       <div className="max-w-7xl mx-auto">
@@ -608,6 +655,7 @@ export default function Sequencer() {
               setBpm={setBpm}
               loadRockPattern={loadRockPattern}
               loadHipHopPattern={loadHipHopPattern}
+              loadElectroPattern={loadElectroPattern}
               delayTime={delayTime}
               setDelayTime={setDelayTime}
               delayFeedback={delayFeedback}

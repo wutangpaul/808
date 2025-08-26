@@ -8,3 +8,4 @@ export default defineConfig({
   base: "/808/",
 });
 
+// trigger build

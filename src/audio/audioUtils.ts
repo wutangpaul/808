@@ -8,8 +8,13 @@ export const initializeAudioContext = (): AudioContext => {
   });
   
   // Set destination to use hardware acceleration if available
-  if (audioContext.destination.channelCount) {
-    audioContext.destination.channelCount = 2; // Stereo output
+  // Only set channel count if the device supports it and allows more than 1 channel
+  if (audioContext.destination.maxChannelCount >= 2) {
+    try {
+      audioContext.destination.channelCount = Math.min(2, audioContext.destination.maxChannelCount);
+    } catch (e) {
+      console.warn('Could not set stereo output, using default channel configuration:', e);
+    }
   }
   
   return audioContext;
